@@ -5,25 +5,25 @@
   gather_facts: false
   tasks:
     - name: Create resource group
-      azure.azcollection.azure_rm_resourcegroup:
+      azure_rm_resourcegroup:
         name: "{{ resource_group_name }}"
         location: "{{ region }}"
 
     - name: Create virtual network
-      azure.azcollection.azure_rm_virtualnetwork:
+      azure_rm_virtualnetwork:
         resource_group: "{{ resource_group_name }}"
         name: "{{ vnet_name }}"
         address_prefixes: "{{ vnet_cidr }}"
 
     - name: Add subnet
-      azure.azcollection.azure_rm_subnet:
+      azure_rm_subnet:
         resource_group: "{{ resource_group_name }}"
         name: "{{ subnet_name }}"
         address_prefix: "{{ subnet_cidr }}"
         virtual_network: "{{ vnet_name }}"
 
     - name: Create public IP address
-      azure.azcollection.azure_rm_publicipaddress:
+      azure_rm_publicipaddress:
         resource_group: "{{ resource_group_name }}"
         allocation_method: Static
         name: "{{ rhel_public_ip_name }}"
@@ -43,7 +43,7 @@
       when: survey_public_ip == "True"
 
     - name: Create Network Security Group that allows SSH and RDP
-      azure.azcollection.azure_rm_securitygroup:
+      azure_rm_securitygroup:
         resource_group: "{{ resource_group_name }}"
         name: "{{ network_sec_group_name }}"
         rules:
@@ -61,7 +61,7 @@
             direction: Inbound
 
     - name: Create virtual network interface card
-      azure.azcollection.azure_rm_networkinterface:
+      azure_rm_networkinterface:
         resource_group: "{{ resource_group_name }}"
         name: "{{ rhel_nic_name }}"
         virtual_network: "{{ vnet_name }}"
@@ -70,7 +70,7 @@
       when: survey_public_ip != "True"
 
     - name: Create virtual network interface card
-      azure.azcollection.azure_rm_networkinterface:
+      azure_rm_networkinterface:
         resource_group: "{{ resource_group_name }}"
         name: "{{ rhel_nic_name }}"
         virtual_network: "{{ vnet_name }}"
@@ -80,7 +80,7 @@
       when: survey_public_ip == "True"
 
     - name: Create VM
-      azure.azcollection.azure_rm_virtualmachine:
+      azure_rm_virtualmachine:
         resource_group: "{{ resource_group_name }}"
         name: "{{ rhel_vm_name }}"
         vm_size: "{{ rhel_vm_size }}"
