@@ -33,7 +33,8 @@
         subnet: "{{ subnet_name }}"
         security_group: "{{ network_sec_group_name }}"
         ip_configurations:
-          - public_ip_address_name: "{{ rhel_public_ip_name }}"
+          - name: ipconfig1
+            public_ip_address_name: "{{ rhel_public_ip_name }}"
       when: survey_public_ip == "True"
 
     - name: Create VM
