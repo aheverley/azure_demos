@@ -29,6 +29,8 @@
         virtual_network: "{{ vnet_name }}"
         subnet: "{{ subnet_name }}"
         security_group: "{{ network_sec_group_name }}"
+        ip_configurations:
+          - public_ip_address_name: "{{ rhel_public_ip_name }}"
       when: output_ip_address != "True"
 
     - name: Create VM
