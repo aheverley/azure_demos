@@ -4,25 +4,25 @@
   connection: local
   tasks:
   
-#    - name: Create public IP address
-#      azure_rm_publicipaddress:
-#        resource_group: "{{ resource_group_name }}"
-#        allocation_method: Static
-#        name: "{{ rhel_public_ip_name }}"
-#      register: output_ip_address
-#      when: survey_public_ip == "True"
+    - name: Create public IP address
+      azure_rm_publicipaddress:
+        resource_group: "{{ resource_group_name }}"
+        allocation_method: Static
+        name: "{{ rhel_public_ip_name }}"
+      register: output_ip_address
+      when: survey_public_ip == "True"
       
-#    - name: Dump public IP for VM which will be created
-#      debug:
-#        msg: "The public IP is {{ output_ip_address.state.ip_address }}"
-#      when: survey_public_ip == "True"
+    - name: Dump public IP for VM which will be created
+      debug:
+        msg: "The public IP is {{ output_ip_address.state.ip_address }}"
+      when: survey_public_ip == "True"
 
-#    - name: Set Stat for Ansible Controller
-#      set_stats:
-#        data: 
-#          azure_vm_public_ip: "{{ output_ip_address.state.ip_address }}"
-#        per_host: false
-#      when: survey_public_ip == "True"
+    - name: Set Stat for Ansible Controller
+      set_stats:
+        data: 
+          azure_vm_public_ip: "{{ output_ip_address.state.ip_address }}"
+        per_host: false
+      when: survey_public_ip == "True"
 
     - name: Create virtual network interface card
       azure_rm_networkinterface:
@@ -46,7 +46,7 @@
         ssh_public_keys:
           - path: "/home/{{ rhel_admin_user }}/.ssh/authorized_keys"
             key_data: "{{ rhel_public_key }}"
-        network_interfaces: "{{ nic_name }}"
+        network_interfaces: "{{ rhel_nic_name }}"
         image:
           offer: RHEL
           publisher: RedHat
