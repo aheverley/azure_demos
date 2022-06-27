@@ -24,17 +24,17 @@
 #        per_host: false
 #      when: survey_public_ip == "True"
 
-#    - name: Create virtual network interface card
-#      azure_rm_networkinterface:
-#        resource_group: "{{ resource_group_name }}"
-#        name: "{{ nic_name }}"
-#        virtual_network: "{{ vnet_name }}"
-#        subnet: "{{ subnet_name }}"
-#        security_group: "{{ network_sec_group_name }}"
-#        ip_configurations:
-#          - name: ipconfig1
-#            public_ip_address_name: "{{ rhel_public_ip_name }}"
-#      when: survey_public_ip == "True"
+    - name: Create virtual network interface card
+      azure_rm_networkinterface:
+        resource_group: "{{ resource_group_name }}"
+        name: "{{ rhel_nic_name }}"
+        virtual_network: "{{ vnet_name }}"
+        subnet: "{{ subnet_name }}"
+        security_group: "{{ network_sec_group_name }}"
+        ip_configurations:
+          - name: ipconfig1
+            public_ip_address_name: "{{ rhel_public_ip_name }}"
+      when: survey_public_ip == "True"
 
     - name: Create VM
       azure_rm_virtualmachine:
