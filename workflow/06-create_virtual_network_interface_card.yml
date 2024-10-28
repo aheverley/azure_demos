@@ -5,7 +5,7 @@
   tasks:
   
     - name: Create virtual network interface card
-      azure_rm_networkinterface:
+      azure.azcollection.azure_rm_networkinterface:
         resource_group: "{{ resource_group_name }}"
         name: "{{ nic_name }}"
         virtual_network: "{{ vnet_name }}"
