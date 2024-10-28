@@ -10,5 +10,8 @@
         name: "{{ nic_name }}"
         virtual_network: "{{ vnet_name }}"
         subnet: "{{ subnet_name }}"
-        public_ip_name: "{{ public_ip_name }}"
         security_group: "{{ network_sec_group_name }}"
+        ip_configurations:
+          - name: ipconfig1
+            public_ip_address_name: demo_public_ip
+            primary: true
