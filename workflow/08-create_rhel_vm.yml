@@ -5,7 +5,7 @@
   tasks:
   
     - name: Create public IP address
-      azure.azcollection.azure_rm_publicipaddress:
+      azure_rm_publicipaddress:
         resource_group: "{{ resource_group_name }}"
         allocation_method: Static
         name: "{{ rhel_public_ip_name }}"
@@ -25,7 +25,7 @@
       when: survey_public_ip == "True"
 
     - name: Create virtual network interface card
-      azure.azcollection.azure_rm_networkinterface:
+      azure_rm_networkinterface:
         resource_group: "{{ resource_group_name }}"
         name: "{{ rhel_nic_name }}"
         virtual_network: "{{ vnet_name }}"
@@ -37,15 +37,16 @@
       when: survey_public_ip == "True"
 
     - name: Create VM
-      azure.azcollection.azure_rm_virtualmachine:
+      azure_rm_virtualmachine:
         resource_group: "{{ resource_group_name }}"
         name: "{{ rhel_vm_name }}"
         vm_size: "{{ rhel_vm_size }}"
         admin_username: "{{ rhel_admin_user }}"
-        ssh_password_enabled: false
-        ssh_public_keys:
-          - path: "/home/{{ rhel_admin_user }}/.ssh/authorized_keys"
-            key_data: "{{ rhel_public_key }}"
+        admin_password: "{{ password }}"
+        #ssh_password_enabled: false
+        #ssh_public_keys:
+        #  - path: "/home/{{ rhel_admin_user }}/.ssh/authorized_keys"
+        #    key_data: "{{ rhel_public_key }}"
         network_interfaces: "{{ rhel_nic_name }}"
         image:
           offer: RHEL
