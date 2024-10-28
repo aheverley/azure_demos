@@ -2,6 +2,8 @@
 - name: Create the Resource Group in the specified region
   hosts: localhost
   connection: local
+  collections:
+    - azure.azcollection
   tasks:
     - name: Create resource group
       azure.azcollection.azure_rm_resourcegroup:
